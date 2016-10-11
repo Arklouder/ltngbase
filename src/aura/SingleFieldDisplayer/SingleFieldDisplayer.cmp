@@ -9,7 +9,6 @@
 
     <aura:registerEvent name="fieldChangeEvent" type="c:FieldChangeEvent"/>
 
-
     <!--no access? show NOTHING!-->
     <aura:if isTrue="{!v.fieldDescribe.describe.userCanRead}">        
         <!-- types=string, phone -->
