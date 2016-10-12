@@ -3,7 +3,7 @@
 The goal of this project is make lightning component development easier.  I hope all of these are eventually replaced by standard components/events and I can retire all this :)
 
 
-## Streamer
+## Streamer	
 component that you set a topic for.  It connects to the streaming api and subscribes to that topic.  
 
 ## SingleFieldDisplayer

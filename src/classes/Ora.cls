@@ -6,7 +6,12 @@ global class Ora {
     }
 
     @AuraEnabled
-    global static string query(String soql) {
+    global static list<SObject> query(String soql) {
+        return Database.query(soql);
+    }
+
+    @AuraEnabled
+    global static string queryJSON(String soql) {
         return JSON.serialize(Database.query(soql));
     }
     

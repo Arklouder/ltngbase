@@ -24,19 +24,16 @@
     },
     
     changePicklist: function(component, event, helper){
-    	//console.log(event.target);
-        //answer[answer.selectedIndex].value
-        var newValue=event.target[event.target.selectedIndex].value
-        //console.log(newValue);
-
-        helper.saveAnything(component, newValue);
+        var selected = component.find("picklist").get("v.value");
+    	//console.log(selected);        
+        helper.saveAnything(component, selected);
     },
     
     flipCheckbox: function(component, event, helper){
         //console.log("checkbox flipped");          
-        
+        var selected = component.find("checkbox").get("v.value")
         //flip value        
-        helper.saveAnything(component, !component.get("v.simpleOutput"));
+        helper.saveAnything(component, selected);
     },
     
     updateDate: function(component, event, helper){
@@ -54,7 +51,8 @@
     },
     
     updateRecord: function(component, event, helper){        
-        //console.log(event.target.value);
+        console.log(event.target);
+        
         helper.saveAnything(component, event.target.value)        
     }
 })

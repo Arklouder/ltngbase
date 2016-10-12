@@ -10,9 +10,11 @@
     <aura:attribute name="sObjectType" type="string" required="true" access="global"/>
     
     <!--private attributes -->
-    <aura:attribute name="sortState" type="object" access="private"/>
-    <aura:attribute name="displayFieldsArray" type="object[]" access="private"/>
+    <aura:attribute name="sortState" type="object" access="global"/>
+    <aura:attribute name="displayFieldsArray" type="object[]" access="global"/>
     
+    <aura:registerEvent name="selectSObject" type="ltng:selectSObject"/>
+
     <table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
         <thead>
             <tr>

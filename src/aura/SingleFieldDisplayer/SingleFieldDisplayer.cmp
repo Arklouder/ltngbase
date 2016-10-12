@@ -8,7 +8,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
     <aura:registerEvent name="fieldChangeEvent" type="c:FieldChangeEvent"/>
-
+    <aura:registerEvent name="handleCallbackError" type="c:handleCallbackError"/>
+    
     <!--no access? show NOTHING!-->
     <aura:if isTrue="{!v.fieldDescribe.describe.userCanRead}">        
         <!-- types=string, phone -->
@@ -53,7 +54,8 @@
 
         <!-- types=boolean -->
         <aura:if isTrue="{!v.fieldDescribe.describe.type == 'boolean'}">
-            <div class="slds-form-element">
+            <ui:inputCheckbox change="{!c.flipCheckbox}" disabled="{!!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}" value="{!v.simpleOutput}" aura:id="checkbox"/>
+            <!-- <div class="slds-form-element">
                 <div class="slds-form-element__control">
                     <label class="slds-checkbox">
                         <aura:if isTrue="{!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}">            
@@ -62,10 +64,10 @@
                                 <input type="checkbox" name="options" id="checkbox-01" disabled="" checked ="{!v.simpleOutput}"/>
                             </aura:set>
                         </aura:if>
-                        <span class="slds-checkbox--faux" onclick="{!c.flipCheckbox}"></span>
+                        <span class="slds-checkbox-faux" onclick="{!c.flipCheckbox}"></span>
                     </label>
                 </div>
-            </div>            
+            </div>   -->          
         </aura:if>
 
         <!-- numerical stuff -->
@@ -87,10 +89,6 @@
                 </aura:set>
             </aura:if>        
         </aura:if>
-
-
-
-
 
         <!-- dates -->
         <aura:if isTrue="{!v.fieldDescribe.describe.type == 'date'}">
@@ -115,17 +113,12 @@
 
         <!--picklists-->
         <aura:if isTrue="{!v.fieldDescribe.describe.type == 'picklist'}">
-            <aura:if isTrue="{!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}">            
-                <select class="slds-select" onchange="{!c.changePicklist}">
+            <aura:if isTrue="{!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}">                            
+                <ui:inputSelect change="{!c.changePicklist}" aura:id="picklist">
                     <aura:iteration items="{!v.fieldDescribe.describe.picklistOptions}" var="option">
-                        <aura:if isTrue="{!v.simpleOutput == option.value}">
-                            <option value="{!option.value}" selected="selected">{!option.label}</option>
-                            <aura:set attribute="else">
-                                <option value="{!option.value}">{!option.label}</option>
-                            </aura:set>
-                        </aura:if>
+                        <ui:inputSelectOption text="{!option.value}" label="{!option.label}" value="{!v.simpleOutput == option.value}"/>
                     </aura:iteration>
-                </select>
+                </ui:inputSelect>
                 <aura:set attribute="else">
                     {!v.simpleOutput}
                 </aura:set>

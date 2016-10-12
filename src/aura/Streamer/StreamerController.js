@@ -18,7 +18,6 @@
                     appendMessageTypeToURL : false
                 });
                 $.cometd.subscribe('/topic/'+component.get("v.topic"), function (message){
-                    //placeholder.  for real, emit as a message event
                     //console.log(message);
                     //console.log(message.data.sobject);
                     var appEvent = $A.get("e.c:StreamerEvent");
