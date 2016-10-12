@@ -2,6 +2,10 @@
 
 The goal of this project is make lightning component development easier.  I hope all of these are eventually replaced by standard components/events and I can retire all this :)
 
+<a href="https://githubsfdeploy.herokuapp.com?owner=mshanemc&repo=ltngbase">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
 
 ## Streamer	
 component that you set a topic for.  It connects to the streaming api and subscribes to that topic.  
