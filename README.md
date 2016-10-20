@@ -24,6 +24,45 @@ Faster, simpler, more performant version of SFD for when there isn't any update 
 
 displays errors from apex callbacks.  Simply pass in the errors object from `.getErrors` to a handleCallbackError event and it'll handle the rest.  You can optionally name the ErrorHandler and put that name in the handleCallbackError event 
 
+Install like this:
+``` html
+<aura:registerEvent name="handleCallbackError" type="c:handleCallbackError"/>
+<c:LightningErrorHandler />
+```
+example of callback (where `a` is the callback response)
+
+
+``` javascript
+if (state === "SUCCESS") {
+    //do your happy path logic
+}  else if (state === "ERROR") {                    
+    var appEvent = $A.get("e.c:handleCallbackError");
+    appEvent.setParams({
+        "errors" : a.getError()
+    });
+    appEvent.fire();   
+```
+
+If you have multiple of these on the page, you can also scope errors to a specific instance of LightningErrorHanlder like this:
+
+``` html
+<aura:registerEvent name="handleCallbackError" type="c:handleCallbackError"/>
+<c:LightningErrorHandler errorHandlerName="specificName"/>
+
+```
+Then pass that LEH's name when you fire the error event:
+
+``` javascript
+if (state === "SUCCESS") {
+    //do your happy path logic
+}  else if (state === "ERROR") {                    
+    var appEvent = $A.get("e.c:handleCallbackError");
+    appEvent.setParams({
+        "errors" : a.getError(),
+        "errorComponentName" : "specificName"
+    });
+    appEvent.fire();   
+```
 ## LightningDataTable
 
 pass in an array of records (presumably from a parent component) and which fields you want shown/editable.  It'll get the necessary describe info to properly label the columns and then implements SFD/SFDRO for the cells as appropriate. 
