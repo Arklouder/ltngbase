@@ -9,7 +9,7 @@
 
     <aura:registerEvent name="fieldChangeEvent" type="c:FieldChangeEvent"/>
     <aura:registerEvent name="handleCallbackError" type="c:handleCallbackError"/>
-    
+
     <!--no access? show NOTHING!-->
     <aura:if isTrue="{!v.fieldDescribe.describe.userCanRead}">        
         <!-- types=string, phone -->
@@ -43,7 +43,7 @@
         </aura:if>
 
         <!-- larger text fields -->
-        <aura:if isTrue="{!v.fieldDescribe.describe.type == 'textarea' || v.fieldDescribe.describe.type == 'combobox' }">
+        <aura:if isTrue="{!and (!v.fieldDescribe.describe.isHTML, v.fieldDescribe.describe.type == 'textarea') || v.fieldDescribe.describe.type == 'combobox' }">
             <aura:if isTrue="{!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}">            
                 <textarea value="{!v.simpleOutput}" onblur="{!c.updateRecord}" class="slds-input slds-input--small"/>               
                 <aura:set attribute="else">
@@ -52,22 +52,20 @@
             </aura:if>        
         </aura:if>    
 
+        <!-- rich text -->
+        <aura:if isTrue="{!and (v.fieldDescribe.describe.isHTML, v.fieldDescribe.describe.type == 'textarea')}">
+            Rich Text Editing is not supported :)
+            <!-- <aura:if isTrue="{!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}">            
+                <textarea value="{!v.simpleOutput}" onblur="{!c.updateRecord}" class="slds-input slds-input++small"/>               
+                <aura:set attribute="else">
+                    {!v.simpleOutput}                                                
+                </aura:set>
+            </aura:if>  -->       
+        </aura:if>
+
         <!-- types=boolean -->
         <aura:if isTrue="{!v.fieldDescribe.describe.type == 'boolean'}">
-            <ui:inputCheckbox change="{!c.flipCheckbox}" disabled="{!!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}" value="{!v.simpleOutput}" aura:id="checkbox"/>
-            <!-- <div class="slds-form-element">
-                <div class="slds-form-element__control">
-                    <label class="slds-checkbox">
-                        <aura:if isTrue="{!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}">            
-                            <input type="checkbox" name="options" id="checkbox-01" checked ="{!v.simpleOutput}"/>
-                            <aura:set attribute="else">
-                                <input type="checkbox" name="options" id="checkbox-01" disabled="" checked ="{!v.simpleOutput}"/>
-                            </aura:set>
-                        </aura:if>
-                        <span class="slds-checkbox-faux" onclick="{!c.flipCheckbox}"></span>
-                    </label>
-                </div>
-            </div>   -->          
+            <ui:inputCheckbox change="{!c.flipCheckbox}" disabled="{!!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}" value="{!v.simpleOutput}" aura:id="checkbox"/>                 
         </aura:if>
 
         <!-- numerical stuff -->
@@ -115,6 +113,7 @@
         <aura:if isTrue="{!v.fieldDescribe.describe.type == 'picklist'}">
             <aura:if isTrue="{!and(v.fieldDescribe.describe.userCanEdit, v.fieldDescribe.editable)}">                            
                 <ui:inputSelect change="{!c.changePicklist}" aura:id="picklist">
+                    <ui:inputSelectOption text="" label="--None--" value="{!!v.simpleOutput}"/>
                     <aura:iteration items="{!v.fieldDescribe.describe.picklistOptions}" var="option">
                         <ui:inputSelectOption text="{!option.value}" label="{!option.label}" value="{!v.simpleOutput == option.value}"/>
                     </aura:iteration>
@@ -123,6 +122,10 @@
                     {!v.simpleOutput}
                 </aura:set>
             </aura:if>
+        </aura:if>
+
+        <aura:if isTrue="{!v.fieldDescribe.describe.type == 'multipicklist'}">
+            Editing of MultiSelect is not supported :)
         </aura:if>
     </aura:if>
 

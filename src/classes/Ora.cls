@@ -53,6 +53,7 @@ global class Ora {
             field.put('userCanEdit', descField.isUpdateable());
             field.put('help', descField.getInlineHelpText());
             field.put('default', descField.getDefaultValue());
+            field.put('isHTML', descField.isHtmlFormatted());
             
             //if a field is a picklist, I want the values
             if (field.get('type')=='picklist'){
