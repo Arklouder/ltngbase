@@ -80,7 +80,15 @@
 					helper.addComp(component, created);
 				}
 			);
-		} else {
+		} else if (fieldDescribe.describe.type === 'percent'){
+			$A.createComponent(
+				"ui:outputText", 
+				{"value" : output + '%'},
+				function (created, status){
+					helper.addComp(component, created);
+				}
+			);
+		}else {
 			$A.createComponent(
 				"ui:outputText", 
 				{"value" : output},
