@@ -1,0 +1,9 @@
+<aura:component >
+	
+	<aura:handler name="init" value="{!this}" action="{!c.blink}"/>
+	<aura:attribute name="ms" type="integer" default="500"/>
+
+	<div aura:id="blinkThis" class="blink">
+		{!v.body}
+	</div>
+</aura:component>
