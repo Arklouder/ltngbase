@@ -8,6 +8,9 @@
 
 		let errors = event.getParam("errors");
 
+		if (component.get("v.logError")){
+			console.log(errors);
+		}
 		if (errors) {
 			errors.forEach( function (error){
 
