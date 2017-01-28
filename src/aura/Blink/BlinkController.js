@@ -1,10 +1,11 @@
 ({
 	blink : function(component, event, helper) {
 		//every so often, toggle via the helper.
-		var t = setInterval(
+		let t = setInterval(
 			$A.getCallback(function() {
-				helper.blink(component)
-			}), 
-			component.get("v.ms"));		
+				helper.blink(component);
+			}),
+			component.get("v.ms")
+		);
 	}
 })
