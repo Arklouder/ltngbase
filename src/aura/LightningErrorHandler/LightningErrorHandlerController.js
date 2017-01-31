@@ -12,18 +12,19 @@
 			console.log(errors);
 		}
 		if (errors) {
+			let showTopLevelError = true;
 			errors.forEach( function (error){
 
-				//top-level error.  there can be only one
-				if (error.message){
-					helper.toastThis(error.message);
-				}
+				//TODO: handle potential duplicate rules
+
 
 				//page-level errors (validation rules, etc)
 				if (error.pageErrors){
 					error.pageErrors.forEach( function(pageError) {
 						helper.toastThis(pageError.message);
+						showTopLevelError = false;
 					});
+
 				}
 
 				if (error.fieldErrors){
@@ -31,10 +32,16 @@
 					for (let fieldName in error.fieldErrors) {
 						//each field could have multiple errors
 						error.fieldErrors[fieldName].forEach( function (errorList){
-							helper.toastThis(errorList.message, "Field Error on " + fieldName + " : ");
+							helper.toastThis(errorList.message, "Field Error on " + errorList.fieldLabel + " : ");
+							showTopLevelError = false;
 						});
 					}  //end of field errors forLoop
 				} //end of fieldErrors if
+
+				//top-level error.  there can be only one
+				if (error.message && showTopLevelError){
+					helper.toastThis(error.message);
+				}
 			}); //end Errors forEach
 		}
 	}

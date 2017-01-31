@@ -27,7 +27,7 @@
                 if (response.length===1){
 
                 	$A.createComponent(
-						"c:avatar",
+						"ltngbase:avatar",
 						{
 							"src" : response[0].SmallPhotoUrl,
 							"letiant" : "circle"
